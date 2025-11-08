@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PES Super League - Points & Fixtures</title>
+    
+    <style>
+        /* Import Google Fonts - Using Montserrat (Modern) and Open Sans (Body) */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Open+Sans:wght@400;600&display=swap');
+    
+        /* General Styling */
+        :root {
+            /* Updated Professional Palette */
+            --primary-color: #0d47a1; /* Deep Blue (Professional/Sporty) */
+            --secondary-color: #f1f1f1; /* Off White */
+            --text-color: #333333;
+            --header-bg: #151515; /* Near Black */
+            --header-text: #ffffff;
+            --accent-color: #ffb300; /* Gold/Orange (for accent/active states) */
+            --win-color: #4CAF50; /* Green */
+            --draw-color: #FFC107; /* Yellow */
+            --loss-color: #F44336; /* Red */
+            --border-color: #e0e0e0;
+            --shadow-color-light: rgba(0, 0, 0, 0.08);
+            --shadow-color-dark: rgba(0, 0, 0, 0.25);
+        }
+    
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Open Sans', Arial, sans-serif;
+        }
+    
+        body {
+            background: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 16px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            
+        }
+    
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0; 
+            background: transparent;
+            border-radius: 12px;
+            box-shadow: 0 0 25px var(--shadow-color-light);
+            animation: fadeInUp 0.8s ease forwards;
+            overflow: hidden; 
+        }
+    
+        /* Header and Navigation */
+        .header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 30px 0 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px var(--shadow-color-dark);
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+    
+        .header h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+            margin-bottom: 5px;
+            user-select: none;
+            letter-spacing: 2px;
+        }
+
+        .header h1 span {
+            color: var(--accent-color);
+        }
+    
+        .nav {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+    
+        .nav-button {
+            background: transparent;
+            border: none;
+            color: var(--header-text);
+            padding: 10px 22px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+    
+        .nav-button:hover {
+            color: var(--accent-color);
+        }
+    
+        .nav-button.active {
+            color: var(--accent-color);
+<<<<<<< HEAD
+=======
+            
+>>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
+        }
+
+        .nav-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 4px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+    
+        /* Section Styling */
+        .content-section {
+            padding: 30px 20px 40px;
+            background-color: #ffffff;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 8px 25px var(--shadow-color-light);
+            opacity: 0;
+            animation: fadeIn 0.6s ease forwards;
+            border-top: 5px solid var(--primary-color);
+        }
+    
+        .content-section.active {
+            opacity: 1;
+            animation-delay: 0.1s;
+        }
+    
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--border-color);
+            display: inline-block;
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+    
+        .hidden {
+            display: none;
+        }
+        
+<<<<<<< HEAD
+        /* --- NEXT MATCH PREVIEW BOX --- */
+=======
+        /* --- HIGHLY IMPROVED: NEXT MATCH PREVIEW BOX FOR 3 MATCHES --- */
+>>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
+        .next-match-preview {
+            background: #ffffff; /* Cleaner white background */
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 20px var(--shadow-color-light);
+        }
+
+        .next-match-preview h3 {
+            background-color: var(--primary-color);
+            color: var(--header-text);
+            padding: 10px 0;
+            margin: -20px -20px 20px -20px; /* Stretch across the box width */
+            border-radius: 10px 10px 0 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .upcoming-matches-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 0 10px;
+        }
+        
+        .match-info-row {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            padding: 10px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            background-color: #f7f7f7;
+        }
+        
+        .match-info-row:hover {
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.1);
+            transform: translateY(-2px);
+            border-color: var(--primary-color);
+        }
+
+        .match-info-row::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: var(--accent-color);
+            border-radius: 8px 0 0 8px;
+        }
+
+        .match-info-row .team {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            text-align: left;
+            padding: 0 10px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        
+        .match-info-row .team:last-child {
+            text-align: right;
+        }
+        
+        .match-details-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 15px;
+            flex-shrink: 0;
+        }
+
+        .match-info-row .vs-text {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-transform: uppercase;
+        }
+        
+        .match-info-row .time-date {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+            white-space: nowrap;
+        }
+
+        .match-meta {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #757575;
+            font-weight: 400;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
+<<<<<<< HEAD
+        /* --- END PREVIEW BOX --- */
+
+
+        /* Points Table Styling */
+=======
+        /* --- END IMPROVED PREVIEW BOX --- */
+
+
+        /* Points Table Styling (Remains the same) */
+    
+>>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
+        .table-container {
+            overflow-x: auto;
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: #fff;
+        }
+    
+        #points-table {
+            width: 100%;
+            border-collapse: collapse;
+<<<<<<< HEAD
+            min-width: 600px;
+=======
+            min-width: 800px;
+>>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
+            font-size: 1rem;
+        }
+    
+        #points-table th, #points-table td {
+<<<<<<< HEAD
+            padding: 14px 10px;
+=======
+            padding: 14px 15px;
+>>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
+            text-align: center;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        #points-table thead th {
+            background-color: var(--primary-color);
+            color: var(--header-text);
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            user-select: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        #points-table tbody tr:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+    
+        #points-table td:first-child {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            background-color: #f0f8ff; 
+        }
+    
+        #points-table td:nth-child(2) {
+            text-align: left;
+            font-weight: 700;
+            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+        }
+    
+        .points {
+            font-weight: 900;
+            font-size: 1.2rem;
+            background-color: var(--accent-color);
+            color: var(--header-text);
+        }
+    
+        /* Form column styling (Remains the same) */
+        .form-col {
+            white-space: nowrap;
+            letter-spacing: 0.1em;
+        }
+    
+        .form-col span {
+            display: inline-block;
+<<<<<<< HEAD
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: white;
+            border-radius: 50%; 
+            margin-right: 2px;
+=======
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: white;
+            border-radius: 50%; 
+            margin-right: 3px;
+>>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
+            box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+        }
+    
+        .form-win { background-color: var(--win-color); }
+        .form-draw { background-color: var(--draw-color); color: var(--text-color);}
+        .form-loss { background-color: var(--loss-color); }
+    
+        /* Fixtures Styling (Remains the same) */
+    
+        #fixtures-list {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding: 0 10px;
+        }
+        
+        #fixtures-list h3 {
+            text-align: left !important;
+            color: var(--primary-color) !important;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-top: 10px !important;
+            margin-bottom: -15px !important;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 5px;
+            width: 100%;
+        }
+
+        .fixture-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 20px 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.02em;
+<<<<<<< HEAD
+            flex-wrap: wrap; /* Crucial for wrapping on small screens */
+=======
+            flex-wrap: wrap;
+>>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
+            position: relative;
+        }
+
+        .fixture-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background-color: var(--primary-color);
+            border-radius: 10px 0 0 10px;
+<<<<<<< HEAD
+        }
+        
+        .match-details {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-grow: 1;
+            justify-content: center;
+        }
+        
+        .match-details .team-name {
+            font-weight: 800;
+            font-size: 1.2rem;
+            font-family: 'Montserrat', sans-serif;
+            white-space: nowrap;
+        }
+    
+        .match-details .score-result {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color); 
+            padding: 5px 10px;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            background-color: #fff8e1;
+            flex-shrink: 0;
+        }
+        
+        /* New Responsive Styles for Fixtures */
+        .fixture-card .date-time, .fixture-card .stadium {
+            font-size: 0.9rem;
+            color: #757575;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .fixture-card .date-time {
+            order: 1;
+        }
+        
+        .fixture-card .stadium {
+            order: 3;
+            text-align: right;
+        }
+        
+        .fixture-card .match-details {
+            order: 2;
+            flex-basis: auto;
+        }
+    
+        /* --- Responsive Adjustments (Mobile - 600px and below) --- */
+    
+        @media (max-width: 900px) {
+            /* General */
+            .container {
+                margin: 15px auto;
+            }
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            .nav {
+                gap: 10px;
+            }
+            .nav-button {
+                padding: 8px 15px;
+                font-size: 1rem;
+            }
+            h2 {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            /* * IMPORTANT MODIFICATION HERE
+             * Only hide D, L, GF, GA, and Form columns.
+             * Keep: #, Team, P, W, GD, Pts visible.
+             * Column indices: 
+             * #: 1, Team: 2, P: 3, W: 4, D: 5 (HIDE), L: 6 (HIDE), 
+             * GF: 7 (HIDE), GA: 8 (HIDE), GD: 9, Pts: 10, Form: 11 (HIDE)
+             */
+            #points-table th.stat:nth-child(5), /* D */
+            #points-table td.stat:nth-child(5),
+            #points-table th.stat:nth-child(6), /* L */
+            #points-table td.stat:nth-child(6),
+            #points-table th.stat:nth-child(7), /* GF */
+            #points-table td.stat:nth-child(7),
+            #points-table th.stat:nth-child(8), /* GA */
+            #points-table td.stat:nth-child(8),
+            #points-table th.stat:nth-child(11), /* Form */
+            #points-table td.stat:nth-child(11) { 
+                display: none;
+            }
+            
+            /* General table cell adjustments for tightness */
+            #points-table th, #points-table td {
+                padding: 12px 6px;
+                font-size: 0.85rem; /* Slightly smaller font to fit 6 columns */
+            }
+            
+            #points-table th:nth-child(3), /* P */
+            #points-table td:nth-child(3) {
+                 padding-left: 4px;
+                 padding-right: 4px;
+            }
+            
+            #points-table td:first-child {
+                font-size: 1rem;
+            }
+            
+            #points-table td:nth-child(2) {
+                text-align: left;
+                padding-left: 8px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 100px; /* Reduced max-width for Team name */
+            }
+
+            .points {
+                font-size: 1rem; /* Smaller points for fitting */
+                padding: 12px 6px !important;
+            }
+            
+            .header h1 {
+                font-size: 2rem; 
+            }
+            
+            .nav {
+                flex-wrap: wrap;
+                margin-top: 10px;
+            }
+            
+            /* Next Match Preview Mobile Stacking */
+=======
+        }
+    
+        .match-details .score-result {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color); 
+            padding: 5px 10px;
+            border: 2px solid var(--primary-color);
+            border-radius: 4px;
+            background-color: #fff8e1;
+        }
+    
+        /* Responsive Adjustments (Minor update for mobile preview) */
+    
+        @media (max-width: 599px) {
+            /* Table hiding is preserved */
+            .stat:not(:nth-child(3)):not(:nth-child(4)):not(:nth-child(10)):not(:nth-child(9)) { 
+                display: none;
+            }
+            .form-col {
+                display: none;
+            }
+
+            /* New mobile styles for next match preview */
+>>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
+            .match-info-row {
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
+
+            .match-info-row .team {
+                text-align: center;
+<<<<<<< HEAD
+                padding: 0;
+            }
+            .match-info-row .team:last-child {
+                text-align: center;
+                order: 3;
+=======
+            }
+            .match-info-row .team:last-child {
+                text-align: center;
+>>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
+            }
+            
+            .match-details-center {
+                padding: 5px 0;
+<<<<<<< HEAD
+                order: 2;
+            }
+            
+            .match-info-row .vs-text {
+                display: none; /* Hide vs text when stacked */
+            }
+            
+            .match-info-row .time-date {
+                text-align: center;
+                font-size: 0.9rem;
+                font-weight: 700;
+                color: var(--primary-color);
+            }
+            
+            /* Fixture Card Mobile Stacking */
+            .fixture-card {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 15px;
+                gap: 5px;
+            }
+
+            .fixture-card .date-time, .fixture-card .stadium {
+                text-align: center;
+                width: 100%;
+                order: 1;
+                font-weight: 700;
+                color: var(--primary-color);
+            }
+
+            .fixture-card .match-details {
+                order: 2;
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 0;
+                border-top: 1px dashed var(--border-color);
+                border-bottom: 1px dashed var(--border-color);
+            }
+            
+            .match-details .team-name {
+                font-size: 1.1rem;
+            }
+            
+            .match-details .score-result {
+                order: 3;
+            }
+            
+            .fixture-card .stadium {
+                order: 3;
+                margin-top: 5px;
+                font-weight: 400;
+                color: #555;
+            }
+            
+            #fixtures-list h3 {
+                font-size: 1.2rem;
+            }
+
+            .footer {
+                font-size: 0.8rem;
+            }
+        }
+
+=======
+            }
+
+            .match-info-row .time-date {
+                text-align: center;
+            }
+        }
+    
+>>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
+        /* Footer and Animations (Remains the same) */
+        .footer {
+            text-align: center;
+            padding: 20px 10px 30px;
+            margin-top: auto; 
+            color: #757575;
+            font-size: 0.95rem;
+            font-family: 'Open Sans', sans-serif;
+            user-select: none;
+            background-color: #e0e0e0;
+        }
+    
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+    
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    
+</head>
+<body>
+
+    <header class="header">
+        <h1>PES <span>SUPER</span> LEAGUE 🏆</h1>
+        <nav class="nav">
+            <button class="nav-button active" data-target="points-table-section">Points Table</button>
+            <button class="nav-button" data-target="fixtures-section">Fixtures</button>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <section id="points-table-section" class="content-section active">
+            <h2>League Standings</h2>
+            
+            <div id="next-match-summary" class="next-match-preview hidden">
+                </div>
+            <div class="table-container">
+                <table id="points-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Team</th>
+                            <th class="stat">P</th>
+                            <th class="stat">W</th>
+                            <th class="stat">D</th>
+                            <th class="stat">L</th>
+                            <th class="stat">GF</th>
+                            <th class="stat">GA</th>
+                            <th class="stat">GD</th>
+                            <th class="points">Pts</th>
+                            <th class="stat form-col">Form (Last 5)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="points-table-body">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="fixtures-section" class="content-section hidden">
+            <h2>Upcoming & Completed Matches</h2>
+            <div id="fixtures-list">
+                </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 PES Super League | Data for 6-team Round-Robin Championship</p>
+    </footer>
+
+    <script>
+        // --- 1. DATA STRUCTURE ---
+        
+        const participants = [
+            "Basil sabu", "Avin puliken", "Chris john George", "Christo shaju", "Basil santhosh", "Basil Eldo"
+        ];
+
+        const rawFixtures = [
+            // Fixture 1-4 completed
+            ["Basil sabu", "Avin puliken", 1], ["Chris john George", "Christo shaju", 1], ["Basil santhosh", "Basil Eldo", 1],
+            ["Christo shaju", "Basil sabu", 2], ["Basil Eldo", "Avin puliken", 2], ["Basil santhosh", "Chris john George", 2],
+            ["Basil sabu", "Basil Eldo", 3], ["Christo shaju", "Basil santhosh", 3], ["Avin puliken", "Chris john George", 3],
+            ["Basil santhosh", "Basil sabu", 4], ["Chris john George", "Basil Eldo", 4], ["Avin puliken", "Christo shaju", 4],
+            // Fixture 5 - NEXT MATCHDAY (3 matches)
+            ["Basil sabu", "Chris john George", 5], ["Basil santhosh", "Avin puliken", 5], ["Basil Eldo", "Christo shaju", 5],
+            // Fixture 6 - UPCOMING
+            ["Avin puliken", "Basil sabu", 6], ["Christo shaju", "Chris john George", 6], ["Basil Eldo", "Basil santhosh", 6],
+            // Fixture 7 - UPCOMING
+            ["Basil sabu", "Christo shaju", 7], ["Avin puliken", "Basil Eldo", 7], ["Chris john George", "Basil santhosh", 7],
+            // Fixture 8-10 UPCOMING
+            ["Basil Eldo", "Basil sabu", 8], ["Basil santhosh", "Christo shaju", 8], ["Chris john George", "Avin puliken", 8],
+            ["Basil sabu", "Basil santhosh", 9], ["Basil Eldo", "Chris john George", 9], ["Christo shaju", "Avin puliken", 9],
+            ["Chris john George", "Basil sabu", 10], ["Avin puliken", "Basil santhosh", 10], ["Christo shaju", "Basil Eldo", 10]
+        ];
+        
+        const leagueData = {
+                        teams: [
+                { name: "Avin puliken", P: 2, W: 2, D: 0, L: 0, GF: 10, GA: 4, Form: "WW" }, // 2 Wins, +6 GD (assumed GF 6, GA 0)
+                { name: "Basil sabu", P: 2, W: 0, D: 0, L: 2, GF: 2, GA: 9, Form: "LL" }, // Hypothetical updates
+                { name: "Chris john George", P: 2, W: 1, D: 0, L: 1, GF: 3, GA: 2, Form: "WL" }, // Hypothetical updates
+                { name: "Christo shaju", P: 2, W: 1, D: 0, L: 1, GF: 3, GA: 3, Form: "LW" }, // Hypothetical updates
+                { name: "Basil santhosh", P: 2, W: 2, D: 0, L: 0, GF: 6, GA: 1, Form: "WW" }, // Hypothetical updates
+                { name: "Basil Eldo", P: 2, W: 0, D: 0, L: 2, GF: 3, GA: 8, Form: "LL" } // Hypothetical updates
+            ],
+            
+            fixtures: rawFixtures.map(f => {
+                let date = `TBD`; 
+                let time = "20:00 IST";
+                let venue = "Basil Arena";
+                let status = "Upcoming";
+                let result = "";
+
+                // Completed Matches (Fixtures 1-4)
+                if (f[2] <= 2) {
+                    date = f[2] <= 2 ? "Oct 28" : "Nov 4";
+                    time = "FT";
+                    status = "Completed";
+                    
+                    // F1
+                    if (f[0] === "Basil sabu" && f[1] === "Avin puliken") { result = "2 - 7"; }
+                    if (f[0] === "Chris john George" && f[1] === "Christo shaju") { result = "3 - 1"; }
+                    if (f[0] === "Basil santhosh" && f[1] === "Basil Eldo") { result = "5 - 1"; }
+                    
+                    // F2
+                    if (f[0] === "Christo shaju" && f[1] === "Basil sabu") { result = "2 - 0"; }
+                    if (f[0] === "Basil Eldo" && f[1] === "Avin puliken") { result = "2 - 3"; }
+                    if (f[0] === "Basil santhosh" && f[1] === "Chris john George") { result = "0 - 1"; }
+                    
+                    // F3
+                    //if (f[0] === "Basil sabu" && f[1] === "Basil Eldo") { result = "1 - 2"; }
+                    //if (f[0] === "Christo shaju" && f[1] === "Basil santhosh") { result = "4 - 1"; }
+                    //if (f[0] === "Avin puliken" && f[1] === "Chris john George") { result = "3 - 2"; }
+                    
+                    // F4
+                   // if (f[0] === "Basil santhosh" && f[1] === "Basil sabu") { result = "5 - 1"; }
+                   // if (f[0] === "Chris john George" && f[1] === "Basil Eldo") { result = "3 - 0"; }
+                   // if (f[0] === "Avin puliken" && f[1] === "Christo shaju") { result = "2 - 0"; }
+                }
+
+                // Upcoming Matches (F5 onwards)
+                if (f[2] >= 3) {
+                    date = f[2] === 5 ? "Nov 11" : f[2] === 6 ? "Nov 18" : f[2] === 7 ? "Nov 25" : "Dec TBD";
+                    if(f[2] >= 7) time = "TBD";
+                }
+
+                return {
+                    fixtureNum: f[2],
+                    date: date,
+                    time: time,
+                    home: f[0],
+                    away: f[1],
+                    venue: venue,
+                    result: result, 
+                    status: status 
+                };
+            })
+        };
+
+
+        // --- 2. LOGIC FUNCTIONS ---
+
+        // Function to get the top 3 upcoming matches
+        const getNextMatchInfo = () => {
+            const upcomingFixtures = leagueData.fixtures.filter(f => f.status === 'Upcoming');
+            
+            if (upcomingFixtures.length === 0) {
+                return null; // League completed
+            }
+
+            // Get the first 3 upcoming fixtures, sorted by fixture number
+            const top3Matches = upcomingFixtures
+                .sort((a, b) => a.fixtureNum - b.fixtureNum)
+                .slice(0, 3);
+                
+            return {
+                nextMatchday: top3Matches[0].fixtureNum,
+                matches: top3Matches
+            };
+        };
+
+        // UPDATED: Function to render the Next Match Preview with 3 matches (HTML Structure change)
+        const renderNextMatchPreview = () => {
+            const summaryDiv = document.getElementById('next-match-summary');
+            const matchInfo = getNextMatchInfo();
+
+            if (!matchInfo || matchInfo.matches.length === 0) {
+                summaryDiv.classList.add('hidden');
+                return;
+            }
+
+            summaryDiv.classList.remove('hidden');
+
+            let matchesHTML = '';
+            matchInfo.matches.forEach(match => {
+                matchesHTML += `
+                    <div class="match-info-row">
+                        <span class="team">${match.home}</span>
+                        <div class="match-details-center">
+                            <span class="vs-text">vs</span>
+                            <span class="time-date">${match.date} | ${match.time}</span>
+                        </div>
+                        <span class="team">${match.away}</span>
+                    </div>
+                `;
+            });
+
+            summaryDiv.innerHTML = `
+                <h3>Upcoming Matches (Matchday ${matchInfo.nextMatchday})</h3>
+                <div class="upcoming-matches-list">
+                    ${matchesHTML}
+                </div>
+                <div class="match-meta">
+                    All matches at ${matchInfo.matches[0].venue}. See the Fixtures tab for full schedule.
+                </div>
+            `;
+        };
+
+        // Function to calculate and sort the league table
+        const getSortedTeams = () => {
+            return leagueData.teams
+                .map(team => {
+                    const Pts = (team.W * 3) + team.D;
+                    const GD = team.GF - team.GA;
+                    return { ...team, Pts, GD };
+                })
+                .sort((a, b) => {
+                    if (b.Pts !== a.Pts) return b.Pts - a.Pts;
+                    if (b.GD !== a.GD) return b.GD - a.GD;
+                    return b.GF - a.GF;
+                });
+        };
+
+        // Function to render the Points Table
+        const renderPointsTable = () => {
+            const tableBody = document.getElementById('points-table-body');
+            const sortedTeams = getSortedTeams();
+            tableBody.innerHTML = ''; 
+
+            sortedTeams.forEach((team, index) => {
+                const row = document.createElement('tr');
+<<<<<<< HEAD
+                // Slice the form string to only show the last 5 results
+=======
+>>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
+                const formResults = team.Form.slice(-5).toUpperCase();
+
+                const formHTML = formResults.split('').map(result => {
+                    const className = result === 'W' ? 'form-win' : result === 'D' ? 'form-draw' : 'form-loss';
+                    return `<span class="${className}">${result}</span>`;
+                }).join('');
+
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${team.name}</td>
+                    <td class="stat">${team.P}</td>
+                    <td class="stat">${team.W}</td>
+                    <td class="stat">${team.D}</td>
+                    <td class="stat">${team.L}</td>
+                    <td class="stat">${team.GF}</td>
+                    <td class="stat">${team.GA}</td>
+                    <td class="stat">${team.GD > 0 ? '+' : ''}${team.GD}</td>
+                    <td class="points">${team.Pts}</td>
+                    <td class="stat form-col">${formHTML}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        };
+
+        // Function to render the Fixtures
+        const renderFixtures = () => {
+            const fixturesList = document.getElementById('fixtures-list');
+            fixturesList.innerHTML = ''; 
+            
+            const groupedFixtures = leagueData.fixtures.reduce((acc, fixture) => {
+                if (!acc[fixture.fixtureNum]) {
+                    const isCompleted = fixture.status === 'Completed';
+                    const timeDisplay = isCompleted ? 'Completed' : fixture.time;
+
+                    acc[fixture.fixtureNum] = {
+                        header: `Matchday ${fixture.fixtureNum} (${fixture.date} - ${timeDisplay})`,
+                        matches: []
+                    };
+                }
+                acc[fixture.fixtureNum].matches.push(fixture);
+                return acc;
+            }, {});
+
+            for (const fixtureNum in groupedFixtures) {
+                const group = groupedFixtures[fixtureNum];
+                
+                const header = document.createElement('h3');
+                header.textContent = group.header;
+                fixturesList.appendChild(header);
+
+                group.matches.forEach(fixture => {
+                    const card = document.createElement('div');
+                    card.classList.add('fixture-card');
+                    
+                    const resultDisplay = fixture.result ? 
+<<<<<<< HEAD
+                        `<span class="score-result" style="color: var(--primary-color); border-color: var(--primary-color);">${fixture.result}</span>` : 
+                        `<span class="vs-text">vs</span>`;
+=======
+                        `<span class="vs score-result" style="color: var(--primary-color); border-color: var(--primary-color);">${fixture.result}</span>` : 
+                        `<span class="vs">vs</span>`;
+>>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
+                    
+                    const venueDisplay = fixture.status === 'Completed' ? 'FULL TIME' : fixture.venue.toUpperCase();
+                    
+                    card.innerHTML = `
+                        <span class="date-time">${fixture.date} / ${fixture.time}</span>
+                        <div class="match-details">
+                            <span class="team-name">${fixture.home}</span>
+                            ${resultDisplay}
+                            <span class="team-name">${fixture.away}</span>
+                        </div>
+                        <span class="stadium">${venueDisplay}</span>
+                    `;
+                    fixturesList.appendChild(card);
+                });
+            }
+        };
+
+        // --- 3. INITIALIZATION AND INTERACTIVITY ---
+
+        const initializeSite = () => {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            const switchSection = (targetId) => {
+                navButtons.forEach(button => button.classList.remove('active'));
+                contentSections.forEach(section => {
+                    // Use a temporary class to re-trigger the fade-in animation on the new section
+                    if (!section.classList.contains('hidden')) {
+                         section.classList.add('hidden');
+                         section.style.opacity = '0';
+                         section.style.animation = 'none';
+                    }
+                });
+
+                const activeNavButton = document.querySelector(`.nav-button[data-target="${targetId}"]`);
+                if (activeNavButton) {
+                    activeNavButton.classList.add('active');
+                }
+
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.remove('hidden');
+                    // Re-apply the animation property
+                    setTimeout(() => {
+                        targetSection.style.animation = 'fadeIn 0.6s ease forwards';
+                    }, 50); 
+                }
+            };
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const target = event.target.getAttribute('data-target');
+                    switchSection(target);
+                });
+            });
+
+            // Initial content load
+            renderNextMatchPreview(); 
+            renderPointsTable();
+            renderFixtures();
+            switchSection('points-table-section'); 
+        };
+
+        document.addEventListener('DOMContentLoaded', initializeSite);
+    </script>
+</body>
+</html>

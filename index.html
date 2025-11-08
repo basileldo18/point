@@ -41,7 +41,6 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            
         }
     
         .container {
@@ -111,10 +110,6 @@
     
         .nav-button.active {
             color: var(--accent-color);
-<<<<<<< HEAD
-=======
-            
->>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
         }
 
         .nav-button.active::after {
@@ -163,11 +158,7 @@
             display: none;
         }
         
-<<<<<<< HEAD
         /* --- NEXT MATCH PREVIEW BOX --- */
-=======
-        /* --- HIGHLY IMPROVED: NEXT MATCH PREVIEW BOX FOR 3 MATCHES --- */
->>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
         .next-match-preview {
             background: #ffffff; /* Cleaner white background */
             border: 1px solid var(--border-color);
@@ -274,18 +265,10 @@
             border-top: 1px solid var(--border-color);
             padding-top: 15px;
         }
-<<<<<<< HEAD
         /* --- END PREVIEW BOX --- */
 
 
         /* Points Table Styling */
-=======
-        /* --- END IMPROVED PREVIEW BOX --- */
-
-
-        /* Points Table Styling (Remains the same) */
-    
->>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
         .table-container {
             overflow-x: auto;
             width: 100%;
@@ -297,20 +280,12 @@
         #points-table {
             width: 100%;
             border-collapse: collapse;
-<<<<<<< HEAD
             min-width: 600px;
-=======
-            min-width: 800px;
->>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
             font-size: 1rem;
         }
     
         #points-table th, #points-table td {
-<<<<<<< HEAD
             padding: 14px 10px;
-=======
-            padding: 14px 15px;
->>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
             text-align: center;
             border-bottom: 1px solid #eeeeee;
         }
@@ -351,7 +326,7 @@
             color: var(--header-text);
         }
     
-        /* Form column styling (Remains the same) */
+        /* Form column styling */
         .form-col {
             white-space: nowrap;
             letter-spacing: 0.1em;
@@ -359,7 +334,6 @@
     
         .form-col span {
             display: inline-block;
-<<<<<<< HEAD
             width: 20px;
             height: 20px;
             line-height: 20px;
@@ -369,17 +343,6 @@
             color: white;
             border-radius: 50%; 
             margin-right: 2px;
-=======
-            width: 24px;
-            height: 24px;
-            line-height: 24px;
-            text-align: center;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: white;
-            border-radius: 50%; 
-            margin-right: 3px;
->>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
             box-shadow: 0 1px 4px rgba(0,0,0,0.3);
             transition: transform 0.3s ease;
             text-transform: uppercase;
@@ -390,7 +353,7 @@
         .form-draw { background-color: var(--draw-color); color: var(--text-color);}
         .form-loss { background-color: var(--loss-color); }
     
-        /* Fixtures Styling (Remains the same) */
+        /* Fixtures Styling */
     
         #fixtures-list {
             display: flex;
@@ -425,11 +388,7 @@
             font-weight: 600;
             font-size: 1.1rem;
             letter-spacing: 0.02em;
-<<<<<<< HEAD
             flex-wrap: wrap; /* Crucial for wrapping on small screens */
-=======
-            flex-wrap: wrap;
->>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
             position: relative;
         }
 
@@ -442,7 +401,6 @@
             width: 5px;
             background-color: var(--primary-color);
             border-radius: 10px 0 0 10px;
-<<<<<<< HEAD
         }
         
         .match-details {
@@ -577,32 +535,6 @@
             }
             
             /* Next Match Preview Mobile Stacking */
-=======
-        }
-    
-        .match-details .score-result {
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary-color); 
-            padding: 5px 10px;
-            border: 2px solid var(--primary-color);
-            border-radius: 4px;
-            background-color: #fff8e1;
-        }
-    
-        /* Responsive Adjustments (Minor update for mobile preview) */
-    
-        @media (max-width: 599px) {
-            /* Table hiding is preserved */
-            .stat:not(:nth-child(3)):not(:nth-child(4)):not(:nth-child(10)):not(:nth-child(9)) { 
-                display: none;
-            }
-            .form-col {
-                display: none;
-            }
-
-            /* New mobile styles for next match preview */
->>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
             .match-info-row {
                 grid-template-columns: 1fr;
                 padding: 10px;
@@ -610,22 +542,15 @@
 
             .match-info-row .team {
                 text-align: center;
-<<<<<<< HEAD
                 padding: 0;
             }
             .match-info-row .team:last-child {
                 text-align: center;
                 order: 3;
-=======
-            }
-            .match-info-row .team:last-child {
-                text-align: center;
->>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
             }
             
             .match-details-center {
                 padding: 5px 0;
-<<<<<<< HEAD
                 order: 2;
             }
             
@@ -689,15 +614,6 @@
             }
         }
 
-=======
-            }
-
-            .match-info-row .time-date {
-                text-align: center;
-            }
-        }
-    
->>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
         /* Footer and Animations (Remains the same) */
         .footer {
             text-align: center;
@@ -950,10 +866,7 @@
 
             sortedTeams.forEach((team, index) => {
                 const row = document.createElement('tr');
-<<<<<<< HEAD
                 // Slice the form string to only show the last 5 results
-=======
->>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
                 const formResults = team.Form.slice(-5).toUpperCase();
 
                 const formHTML = formResults.split('').map(result => {
@@ -1009,13 +922,8 @@
                     card.classList.add('fixture-card');
                     
                     const resultDisplay = fixture.result ? 
-<<<<<<< HEAD
                         `<span class="score-result" style="color: var(--primary-color); border-color: var(--primary-color);">${fixture.result}</span>` : 
                         `<span class="vs-text">vs</span>`;
-=======
-                        `<span class="vs score-result" style="color: var(--primary-color); border-color: var(--primary-color);">${fixture.result}</span>` : 
-                        `<span class="vs">vs</span>`;
->>>>>>> b9c76a598b8ee1b835e8eade553d330589c67e91
                     
                     const venueDisplay = fixture.status === 'Completed' ? 'FULL TIME' : fixture.venue.toUpperCase();
                     

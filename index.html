@@ -739,7 +739,7 @@
                 let result = "";
 
                 // Completed Matches (Fixtures 1-4)
-                if (f[2] <= 2) {
+                if (f[2] <= 4) {
                     date = f[2] <= 2 ? "Oct 28" : "Nov 4";
                     time = "FT";
                     status = "Completed";
@@ -755,18 +755,18 @@
                     if (f[0] === "Basil santhosh" && f[1] === "Chris john George") { result = "0 - 1"; }
                     
                     // F3
-                    //if (f[0] === "Basil sabu" && f[1] === "Basil Eldo") { result = "1 - 2"; }
+                    if (f[0] === "Basil sabu" && f[1] === "Basil Eldo") { result = "1 - 2"; }
                     //if (f[0] === "Christo shaju" && f[1] === "Basil santhosh") { result = "4 - 1"; }
-                    //if (f[0] === "Avin puliken" && f[1] === "Chris john George") { result = "3 - 2"; }
+                    if (f[0] === "Avin puliken" && f[1] === "Chris john George") { result = "1 - 6"; }
                     
                     // F4
-                   // if (f[0] === "Basil santhosh" && f[1] === "Basil sabu") { result = "5 - 1"; }
-                   // if (f[0] === "Chris john George" && f[1] === "Basil Eldo") { result = "3 - 0"; }
+                   if (f[0] === "Basil santhosh" && f[1] === "Basil sabu") { result = "5 - 2"; }
+                   if (f[0] === "Chris john George" && f[1] === "Basil Eldo") { result = "1 - 7"; }
                    // if (f[0] === "Avin puliken" && f[1] === "Christo shaju") { result = "2 - 0"; }
                 }
 
                 // Upcoming Matches (F5 onwards)
-                if (f[2] >= 3) {
+                if (f[2] >= 5) {
                     date = f[2] === 5 ? "Nov 11" : f[2] === 6 ? "Nov 18" : f[2] === 7 ? "Nov 25" : "Dec TBD";
                     if(f[2] >= 7) time = "TBD";
                 }

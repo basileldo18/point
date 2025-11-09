@@ -658,9 +658,6 @@
 
         <section id="points-table-section" class="content-section active">
             <h2>League Standings</h2>
-            
-            <div id="next-match-summary" class="next-match-preview hidden">
-                </div>
             <div class="table-container">
                 <table id="points-table">
                     <thead>
@@ -679,7 +676,7 @@
                         </tr>
                     </thead>
                     <tbody id="points-table-body">
-                        </tbody>
+                    </tbody>
                 </table>
             </div>
         </section>
@@ -687,7 +684,7 @@
         <section id="fixtures-section" class="content-section hidden">
             <h2>Upcoming & Completed Matches</h2>
             <div id="fixtures-list">
-                </div>
+            </div>
         </section>
 
     </main>
@@ -698,150 +695,78 @@
 
     <script>
         // --- 1. DATA STRUCTURE ---
-        
+
         const participants = [
             "Basil sabu", "Avin puliken", "Chris john George", "Christo shaju", "Basil santhosh", "Basil Eldo"
         ];
 
         const rawFixtures = [
-            // Fixture 1-4 completed
-            ["Basil sabu", "Avin puliken", 1], ["Chris john George", "Christo shaju", 1], ["Basil santhosh", "Basil Eldo", 1],
-            ["Christo shaju", "Basil sabu", 2], ["Basil Eldo", "Avin puliken", 2], ["Basil santhosh", "Chris john George", 2],
-            ["Basil sabu", "Basil Eldo", 3], ["Christo shaju", "Basil santhosh", 3], ["Avin puliken", "Chris john George", 3],
-            ["Basil santhosh", "Basil sabu", 4], ["Chris john George", "Basil Eldo", 4], ["Avin puliken", "Christo shaju", 4],
-            // Fixture 5 - NEXT MATCHDAY (3 matches)
-            ["Basil sabu", "Chris john George", 5], ["Basil santhosh", "Avin puliken", 5], ["Basil Eldo", "Christo shaju", 5],
-            // Fixture 6 - UPCOMING
-            ["Avin puliken", "Basil sabu", 6], ["Christo shaju", "Chris john George", 6], ["Basil Eldo", "Basil santhosh", 6],
-            // Fixture 7 - UPCOMING
-            ["Basil sabu", "Christo shaju", 7], ["Avin puliken", "Basil Eldo", 7], ["Chris john George", "Basil santhosh", 7],
-            // Fixture 8-10 UPCOMING
-            ["Basil Eldo", "Basil sabu", 8], ["Basil santhosh", "Christo shaju", 8], ["Chris john George", "Avin puliken", 8],
-            ["Basil sabu", "Basil santhosh", 9], ["Basil Eldo", "Chris john George", 9], ["Christo shaju", "Avin puliken", 9],
-            ["Chris john George", "Basil sabu", 10], ["Avin puliken", "Basil santhosh", 10], ["Christo shaju", "Basil Eldo", 10]
+            // F1 (Oct 28)
+            ["Basil sabu",         "Avin puliken",      1, "2 - 7"],
+            ["Chris john George",  "Christo shaju",     1, "3 - 1"],
+            ["Basil santhosh",     "Basil Eldo",        1, "5 - 1"],
+
+            // F2 (Oct 28)
+            ["Christo shaju",      "Basil sabu",        2, "2 - 0"],
+            ["Basil Eldo",         "Avin puliken",      2, "2 - 3"],
+            ["Basil santhosh",     "Chris john George", 2, "0 - 1"],
+
+            // F3 (Nov 4)
+            ["Basil sabu",         "Basil Eldo",        3, "1 - 2"],
+            ["Christo shaju",      "Basil santhosh",    3, ""],
+            ["Avin puliken",       "Chris john George", 3, "1 - 6"],
+
+            // F4 (Nov 4)
+            ["Basil santhosh",     "Basil sabu",        4, "5 - 2"],
+            ["Chris john George",  "Basil Eldo",        4, "1 - 7"],
+            ["Avin puliken",       "Christo shaju",     4, ""],
+
+            // F5 (Nov 11, upcoming)
+            ["Basil sabu",         "Chris john George", 5, ""],
+            ["Basil santhosh",     "Avin puliken",      5, "0-1"],
+            ["Basil Eldo",         "Christo shaju",     5, ""],
+            // F6 (Nov 18, upcoming)
+            ["Avin puliken",       "Basil sabu",        6, ""],
+            ["Christo shaju",      "Chris john George", 6, ""],
+            ["Basil Eldo",         "Basil santhosh",    6, ""],
+            // F7 (Nov 25, upcoming)
+            ["Basil sabu",         "Christo shaju",     7, ""],
+            ["Avin puliken",       "Basil Eldo",        7, "1-5"],
+            ["Chris john George",  "Basil santhosh",    7, ""],
+            // F8-10 (Dec, upcoming)
+            ["Basil Eldo",         "Basil sabu",        8, "3-4"],
+            ["Basil santhosh",     "Christo shaju",     8, ""],
+            ["Chris john George",  "Avin puliken",      8, ""],
+            ["Basil sabu",         "Basil santhosh",    9, ""],
+            ["Basil Eldo",         "Chris john George", 9, ""],
+            ["Christo shaju",      "Avin puliken",      9, ""],
+            ["Chris john George",  "Basil sabu",        10, ""],
+            ["Avin puliken",       "Basil santhosh",    10, ""],
+            ["Christo shaju",      "Basil Eldo",        10, ""],
         ];
-        
+
         const leagueData = {
-                        teams: [
-                { name: "Avin puliken", P: 3, W: 2, D: 0, L: 1, GF: 11, GA: 10, Form: "WWL" }, // 2 Wins, +6 GD (assumed GF 6, GA 0)
-                { name: "Basil sabu", P: 4, W: 0, D: 0, L: 4, GF: 5, GA: 16, Form: "LLLL" }, // Hypothetical updates
-                { name: "Chris john George", P: 4, W: 3, D: 0, L: 1, GF: 16, GA: 4, Form: "WLWW" }, // Hypothetical updates
-                { name: "Christo shaju", P: 2, W: 1, D: 0, L: 1, GF: 3, GA: 3, Form: "LW" }, // Hypothetical updates
-                { name: "Basil santhosh", P: 3, W: 3, D: 0, L: 0, GF: 11, GA: 3, Form: "WWWW" }, // Hypothetical updates
-                { name: "Basil Eldo", P: 4, W: 1, D: 0, L: 3, GF: 3, GA: 16, Form: "LLLW" } // Hypothetical updates
-            ],
-            
-            fixtures: rawFixtures.map(f => {
-                let date = `TBD`; 
-                let time = "20:00 IST";
-                let venue = "Basil Arena";
-                let status = "Upcoming";
-                let result = "";
-
-                // Completed Matches (Fixtures 1-4)
-                if (f[2] <= 4) {
-                    date = f[2] <= 2 ? "Oct 28" : "Nov 4";
-                    time = "FT";
-                    status = "Completed";
-                    
-                    // F1
-                    if (f[0] === "Basil sabu" && f[1] === "Avin puliken") { result = "2 - 7"; }
-                    if (f[0] === "Chris john George" && f[1] === "Christo shaju") { result = "3 - 1"; }
-                    if (f[0] === "Basil santhosh" && f[1] === "Basil Eldo") { result = "5 - 1"; }
-                    
-                    // F2
-                    if (f[0] === "Christo shaju" && f[1] === "Basil sabu") { result = "2 - 0"; }
-                    if (f[0] === "Basil Eldo" && f[1] === "Avin puliken") { result = "2 - 3"; }
-                    if (f[0] === "Basil santhosh" && f[1] === "Chris john George") { result = "0 - 1"; }
-                    
-                    // F3
-                    if (f[0] === "Basil sabu" && f[1] === "Basil Eldo") { result = "1 - 2"; }
-                    //if (f[0] === "Christo shaju" && f[1] === "Basil santhosh") { result = "4 - 1"; }
-                    if (f[0] === "Avin puliken" && f[1] === "Chris john George") { result = "1 - 6"; }
-                    
-                    // F4
-                   if (f[0] === "Basil santhosh" && f[1] === "Basil sabu") { result = "5 - 2"; }
-                   if (f[0] === "Chris john George" && f[1] === "Basil Eldo") { result = "1 - 7"; }
-                   // if (f[0] === "Avin puliken" && f[1] === "Christo shaju") { result = "2 - 0"; }
-                }
-
-                // Upcoming Matches (F5 onwards)
-                if (f[2] >= 5) {
-                    date = f[2] === 5 ? "Nov 11" : f[2] === 6 ? "Nov 18" : f[2] === 7 ? "Nov 25" : "Dec TBD";
-                    if(f[2] >= 7) time = "TBD";
-                }
-
-                return {
-                    fixtureNum: f[2],
-                    date: date,
-                    time: time,
-                    home: f[0],
-                    away: f[1],
-                    venue: venue,
-                    result: result, 
-                    status: status 
-                };
-            })
+            teams: [
+                { name: "Avin puliken", P: 5, W: 3, D: 0, L: 2, GF: 13, GA: 15, Form: "WWLLW" },
+                { name: "Basil sabu", P: 5, W: 1, D: 0, L: 4, GF: 9, GA: 19, Form: "LLLLW" },
+                { name: "Chris john George", P: 4, W: 3, D: 0, L: 1, GF: 16, GA: 4, Form: "WLWW" },
+                { name: "Christo shaju", P: 2, W: 1, D: 0, L: 1, GF: 3, GA: 3, Form: "LW" },
+                { name: "Basil santhosh", P: 4, W: 3, D: 0, L: 1, GF: 11, GA: 4, Form: "WWWWL" },
+                { name: "Basil Eldo", P: 6, W: 2, D: 0, L: 4, GF: 11, GA: 21, Form: "LLLWWL" }
+            ],
+            fixtures: rawFixtures.map(f => ({
+                fixtureNum: f[2],
+                date: f[2] <= 2 ? "Oct 28" : f[2] <=4 ? "Nov 4" : f[2] ===5 ? "Nov 11" : f[2] ===6 ? "Nov 18" : f[2] ===7 ? "Nov 25" : "Dec TBD",
+                time: f[2] <= 4 ? "FT" : "20:00 IST",
+                home: f[0],
+                away: f[1],
+                venue: "Basil Arena",
+                result: f[3], // Include result if completed, else empty
+                status: f[2] <= 4 ? "Completed" : "Upcoming"
+            }))
         };
 
-
-        // --- 2. LOGIC FUNCTIONS ---
-
-        // Function to get the top 3 upcoming matches
-        const getNextMatchInfo = () => {
-            const upcomingFixtures = leagueData.fixtures.filter(f => f.status === 'Upcoming');
-            
-            if (upcomingFixtures.length === 0) {
-                return null; // League completed
-            }
-
-            // Get the first 3 upcoming fixtures, sorted by fixture number
-            const top3Matches = upcomingFixtures
-                .sort((a, b) => a.fixtureNum - b.fixtureNum)
-                .slice(0, 3);
-                
-            return {
-                nextMatchday: top3Matches[0].fixtureNum,
-                matches: top3Matches
-            };
-        };
-
-        // UPDATED: Function to render the Next Match Preview with 3 matches (HTML Structure change)
-        const renderNextMatchPreview = () => {
-            const summaryDiv = document.getElementById('next-match-summary');
-            const matchInfo = getNextMatchInfo();
-
-            if (!matchInfo || matchInfo.matches.length === 0) {
-                summaryDiv.classList.add('hidden');
-                return;
-            }
-
-            summaryDiv.classList.remove('hidden');
-
-            let matchesHTML = '';
-            matchInfo.matches.forEach(match => {
-                matchesHTML += `
-                    <div class="match-info-row">
-                        <span class="team">${match.home}</span>
-                        <div class="match-details-center">
-                            <span class="vs-text">vs</span>
-                            <span class="time-date">${match.date} | ${match.time}</span>
-                        </div>
-                        <span class="team">${match.away}</span>
-                    </div>
-                `;
-            });
-
-            summaryDiv.innerHTML = `
-                <h3>Upcoming Matches (Matchday ${matchInfo.nextMatchday})</h3>
-                <div class="upcoming-matches-list">
-                    ${matchesHTML}
-                </div>
-                <div class="match-meta">
-                    All matches at ${matchInfo.matches[0].venue}. See the Fixtures tab for full schedule.
-                </div>
-            `;
-        };
+        // --- LOGIC FUNCTIONS (NextMatchPreview REMOVED) ---
 
         // Function to calculate and sort the league table
         const getSortedTeams = () => {
@@ -866,7 +791,6 @@
 
             sortedTeams.forEach((team, index) => {
                 const row = document.createElement('tr');
-                // Slice the form string to only show the last 5 results
                 const formResults = team.Form.slice(-5).toUpperCase();
 
                 const formHTML = formResults.split('').map(result => {
@@ -941,7 +865,7 @@
             }
         };
 
-        // --- 3. INITIALIZATION AND INTERACTIVITY ---
+        // --- INITIALIZATION AND INTERACTIVITY ---
 
         const initializeSite = () => {
             const navButtons = document.querySelectorAll('.nav-button');
@@ -950,11 +874,10 @@
             const switchSection = (targetId) => {
                 navButtons.forEach(button => button.classList.remove('active'));
                 contentSections.forEach(section => {
-                    // Use a temporary class to re-trigger the fade-in animation on the new section
                     if (!section.classList.contains('hidden')) {
-                         section.classList.add('hidden');
-                         section.style.opacity = '0';
-                         section.style.animation = 'none';
+                        section.classList.add('hidden');
+                        section.style.opacity = '0';
+                        section.style.animation = 'none';
                     }
                 });
 
@@ -966,7 +889,6 @@
                 const targetSection = document.getElementById(targetId);
                 if (targetSection) {
                     targetSection.classList.remove('hidden');
-                    // Re-apply the animation property
                     setTimeout(() => {
                         targetSection.style.animation = 'fadeIn 0.6s ease forwards';
                     }, 50); 
@@ -980,8 +902,6 @@
                 });
             });
 
-            // Initial content load
-            renderNextMatchPreview(); 
             renderPointsTable();
             renderFixtures();
             switchSection('points-table-section'); 

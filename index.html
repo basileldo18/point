@@ -737,7 +737,7 @@
             ["Basil Eldo",         "Basil sabu",        8, "3-4"],
             ["Basil santhosh",     "Christo shaju",     8, ""],
             ["Chris john George",  "Avin puliken",      8, ""],
-            ["Basil sabu",         "Basil santhosh",    9, ""],
+            ["Basil sabu",         "Basil santhosh",    9, "2-1"],
             ["Basil Eldo",         "Chris john George", 9, ""],
             ["Christo shaju",      "Avin puliken",      9, ""],
             ["Chris john George",  "Basil sabu",        10, ""],
@@ -748,10 +748,10 @@
         const leagueData = {
             teams: [
                 { name: "Avin puliken", P: 6, W: 3, D: 1, L: 2, GF: 17, GA: 19, Form: "WWLLWD" },
-                { name: "Basil sabu", P: 6, W: 1, D: 1, L: 4, GF: 13, GA: 23, Form: "LLLLWD" },
+                { name: "Basil sabu", P: 7, W: 2, D: 1, L: 4, GF: 15, GA: 24, Form: "LLLLWDW" },
                 { name: "Chris john George", P: 4, W: 3, D: 0, L: 1, GF: 16, GA: 4, Form: "WLWW" },
                 { name: "Christo shaju", P: 2, W: 1, D: 0, L: 1, GF: 3, GA: 3, Form: "LW" },
-                { name: "Basil santhosh", P: 5, W: 3, D: 1, L: 1, GF: 11, GA: 4, Form: "WWWWLD" },
+                { name: "Basil santhosh", P: 6, W: 3, D: 1, L: 2, GF: 12, GA: 6, Form: "WWWWLDL" },
                 { name: "Basil Eldo", P: 7, W: 2, D: 1, L: 4, GF: 11, GA: 21, Form: "LLLWWLD" }
             ],
             fixtures: rawFixtures.map(f => ({
@@ -765,7 +765,41 @@
                 status: f[2] <= 4 ? "Completed" : "Upcoming"
             }))
         };
+        function addKnockoutFixtures(sortedTeams) {
+            const semi1 = [sortedTeams[0].name, sortedTeams[2].name];
+            const semi2 = [sortedTeams[1].name, sortedTeams[3].name];
 
+            leagueData.fixtures.push({
+                fixtureNum: 'SF1',
+                date: "Dec 20",
+                time: "20:00 IST",
+                home: semi1[0],
+                away: semi1[1],
+                venue: "Basil Arena",
+                result: "",
+                status: "Upcoming"
+            });
+            leagueData.fixtures.push({
+                fixtureNum: 'SF2',
+                date: "Dec 21",
+                time: "20:00 IST",
+                home: semi2[0],
+                away: semi2[1],
+                venue: "Basil Arena",
+                result: "",
+                status: "Upcoming"
+            });
+            leagueData.fixtures.push({
+                fixtureNum: 'Final',
+                date: "Dec 27",
+                time: "20:00 IST",
+                home: "Winner SF1",
+                away: "Winner SF2",
+                venue: "Basil Arena",
+                result: "",
+                status: "Upcoming"
+            });
+        }
         // --- LOGIC FUNCTIONS (NextMatchPreview REMOVED) ---
 
         // Function to calculate and sort the league table
@@ -868,44 +902,55 @@
         // --- INITIALIZATION AND INTERACTIVITY ---
 
         const initializeSite = () => {
-            const navButtons = document.querySelectorAll('.nav-button');
-            const contentSections = document.querySelectorAll('.content-section');
+    const navButtons = document.querySelectorAll('.nav-button');
+    const contentSections = document.querySelectorAll('.content-section');
 
-            const switchSection = (targetId) => {
-                navButtons.forEach(button => button.classList.remove('active'));
-                contentSections.forEach(section => {
-                    if (!section.classList.contains('hidden')) {
-                        section.classList.add('hidden');
-                        section.style.opacity = '0';
-                        section.style.animation = 'none';
-                    }
-                });
+    const switchSection = (targetId) => {
+        navButtons.forEach(button => button.classList.remove('active'));
+        contentSections.forEach(section => {
+            if (!section.classList.contains('hidden')) {
+                section.classList.add('hidden');
+                section.style.opacity = '0';
+                section.style.animation = 'none';
+            }
+        });
+        const activeNavButton = document.querySelector(`.nav-button[data-target="${targetId}"]`);
+        if (activeNavButton) {
+            activeNavButton.classList.add('active');
+        }
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+            targetSection.classList.remove('hidden');
+            setTimeout(() => {
+                targetSection.style.animation = 'fadeIn 0.6s ease forwards';
+            }, 50); 
+        }
+    };
 
-                const activeNavButton = document.querySelector(`.nav-button[data-target="${targetId}"]`);
-                if (activeNavButton) {
-                    activeNavButton.classList.add('active');
-                }
+    navButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            const target = event.target.getAttribute('data-target');
+            switchSection(target);
+        });
+    });
 
-                const targetSection = document.getElementById(targetId);
-                if (targetSection) {
-                    targetSection.classList.remove('hidden');
-                    setTimeout(() => {
-                        targetSection.style.animation = 'fadeIn 0.6s ease forwards';
-                    }, 50); 
-                }
-            };
+    // 1. Render points table first (not critical)
+    renderPointsTable();
 
-            navButtons.forEach(button => {
-                button.addEventListener('click', (event) => {
-                    const target = event.target.getAttribute('data-target');
-                    switchSection(target);
-                });
-            });
+    // 2. Check for knockout round addition
+    const sortedTeams = getSortedTeams();
+    const allLeagueFinished = leagueData.fixtures
+        .filter(f => typeof f.fixtureNum === 'number' && f.fixtureNum <= 10)
+        .every(f => f.result && f.result !== "");
+    if (allLeagueFinished && !leagueData.fixtures.some(f => f.fixtureNum === 'SF1')) {
+        addKnockoutFixtures(sortedTeams);
+    }
 
-            renderPointsTable();
-            renderFixtures();
-            switchSection('points-table-section'); 
-        };
+    // 3. Render fixtures
+    renderFixtures();
+    switchSection('points-table-section'); 
+};
+
 
         document.addEventListener('DOMContentLoaded', initializeSite);
     </script>
